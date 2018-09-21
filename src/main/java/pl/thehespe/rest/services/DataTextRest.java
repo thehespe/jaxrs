@@ -19,7 +19,7 @@ public class DataTextRest {
 
 	@GET
 	@Produces("application/json")
-	public Response getAllValues() {
+		public Response getAllValues() {
 
 		DataTextDao dataTextDao = new DataTextDaoImpl();
 		String json = new Gson().toJson(dataTextDao.getAll());

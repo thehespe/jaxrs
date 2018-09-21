@@ -65,7 +65,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>jaxrx</finalName>
+		<finalName>jaxrs</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

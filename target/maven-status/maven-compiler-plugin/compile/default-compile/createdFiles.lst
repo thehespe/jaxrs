@@ -1,6 +1,10 @@
-pl\thehespe\db\model\DataText.class
 pl\thehespe\util\ConnectData.class
 pl\thehespe\dao\DataTextDao.class
-pl\thehespe\dao\impl\DataTextDaoImpl.class
-pl\thehespe\rest\services\Test.class
+pl\thehespe\dao\impl\DataPictuteDaoImpl.class
 pl\thehespe\rest\services\DataTextRest.class
+pl\thehespe\db\model\DataText.class
+pl\thehespe\dao\impl\DataTextDaoImpl.class
+pl\thehespe\dao\DataPictureDao.class
+pl\thehespe\rest\services\Test.class
+pl\thehespe\db\model\DataPicture.class
+pl\thehespe\rest\services\DataPictureRest.class
