@@ -73,47 +73,37 @@ public class DataTextDaoImpl extends ConnectData implements DataTextDao {
 	}
 
 	@Override
-	public void save(String value) {
+	public void save(String value) throws ClassNotFoundException, SQLException {
 		String sql = "INSERT INTO public.data_text(dte_value) VALUES (?)";
 
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
-					properties.getProperty(PASSWORD));
+		Class.forName("org.postgresql.Driver");
+		Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
+				properties.getProperty(PASSWORD));
 
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, value);
-			ps.executeUpdate();
-			
-			con.close();
-			ps.close();
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, value);
+		ps.executeUpdate();
 
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		con.close();
+		ps.close();
 
 	}
 
 	@Override
-	public void update(Integer id, String value) {
+	public void update(Integer id, String value) throws SQLException, ClassNotFoundException {
 		String sql = "UPDATE public.data_text SET dte_value = ? WHERE dte_id = ?";
 
-		try {
-			Class.forName("org.postgresql.Driver");
-			Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
-					properties.getProperty(PASSWORD));
+		Class.forName("org.postgresql.Driver");
+		Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
+				properties.getProperty(PASSWORD));
 
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, value);
-			ps.setInt(2, id);
-			ps.executeUpdate();
-			
-			con.close();
-			ps.close();
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, value);
+		ps.setInt(2, id);
+		ps.executeUpdate();
 
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		con.close();
+		ps.close();
 
 	}
 

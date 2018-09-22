@@ -26,8 +26,8 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 		try {
 
 			Class.forName("org.postgresql.Driver");
-			Connection connection = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
-					properties.getProperty(PASSWORD));
+			Connection connection = DriverManager.getConnection(properties.getProperty(URL),
+					properties.getProperty(USERNAME), properties.getProperty(PASSWORD));
 
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -54,16 +54,17 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 		try {
 
 			Class.forName("org.postgresql.Driver");
-			Connection connection = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
-					properties.getProperty(PASSWORD));
+			Connection connection = DriverManager.getConnection(properties.getProperty(URL),
+					properties.getProperty(USERNAME), properties.getProperty(PASSWORD));
 
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
-			rs.next();
-			dataPicture.setId(rs.getInt("dpi_id"));
-			dataPicture.setPicture(rs.getBytes("dpi_value"));
+			while (rs.next()) {
+				dataPicture.setId(rs.getInt("dpi_id"));
+				dataPicture.setPicture(rs.getBytes("dpi_value"));
+			}
 
 			connection.close();
 			ps.close();
@@ -76,17 +77,18 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 	}
 
 	@Override
-	public void save(String fileName) {
+	public void save(String fileName) throws NullPointerException {
 		String sql = "INSERT INTO public.data_picture(dpi_value) VALUES (?)";
 
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection connection = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
-					properties.getProperty(PASSWORD));
+			Connection connection = DriverManager.getConnection(properties.getProperty(URL),
+					properties.getProperty(USERNAME), properties.getProperty(PASSWORD));
 
 			PreparedStatement ps = connection.prepareStatement(sql);
 			String resource = "pictures/" + fileName;
 			InputStream is = getClass().getClassLoader().getResourceAsStream(resource);
+
 			ps.setBinaryStream(1, is);
 			ps.executeUpdate();
 
@@ -101,13 +103,13 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 	}
 
 	@Override
-	public void update(Integer id, String fileName) {
+	public void update(Integer id, String fileName) throws NullPointerException {
 		String sql = "UPDATE public.data_picture SET dpi_value = ? WHERE dpi_id = ?";
 
 		try {
 			Class.forName("org.postgresql.Driver");
-			Connection connection = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
-					properties.getProperty(PASSWORD));
+			Connection connection = DriverManager.getConnection(properties.getProperty(URL),
+					properties.getProperty(USERNAME), properties.getProperty(PASSWORD));
 
 			PreparedStatement ps = connection.prepareStatement(sql);
 			String resource = "pictures/" + fileName;
@@ -117,7 +119,6 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 			ps.setInt(2, id);
 			ps.executeUpdate();
 
-
 			connection.close();
 			ps.close();
 			is.close();
@@ -126,5 +127,5 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 			e.printStackTrace();
 		}
 	}
-	
+
 }
