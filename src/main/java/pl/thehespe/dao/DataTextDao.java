@@ -1,6 +1,5 @@
 package pl.thehespe.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import pl.thehespe.db.model.DataText;
@@ -11,7 +10,9 @@ public interface DataTextDao {
 
 	public DataText get(Integer id);
 
-	public void save(String value) throws ClassNotFoundException, SQLException;
+	public void save(String value);
 
-	public void update(Integer id, String value) throws SQLException, ClassNotFoundException;
+	public void update(Integer id, String value);
+
+	public DataText getLastEntry();
 }

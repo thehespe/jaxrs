@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.glassfish.jersey.server.internal.scanning.ResourceFinderException;
+import org.hamcrest.core.IsNull;
+
 import pl.thehespe.dao.DataPictureDao;
 import pl.thehespe.db.model.DataPicture;
 import pl.thehespe.util.ConnectData;
 
-public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
+public class DataPictureDaoImpl extends ConnectData implements DataPictureDao {
 
 	private Properties properties = getPropValues();
 
@@ -68,16 +71,14 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 
 			connection.close();
 			ps.close();
-		} catch (SQLException |
-
-				ClassNotFoundException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return dataPicture;
 	}
 
 	@Override
-	public void save(String fileName) throws NullPointerException {
+	public void save(String fileName) throws ResourceFinderException {
 		String sql = "INSERT INTO public.data_picture(dpi_value) VALUES (?)";
 
 		try {
@@ -88,6 +89,9 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			String resource = "pictures/" + fileName;
 			InputStream is = getClass().getClassLoader().getResourceAsStream(resource);
+			if (is == null) {
+				throw new ResourceFinderException();
+			}
 
 			ps.setBinaryStream(1, is);
 			ps.executeUpdate();
@@ -103,7 +107,7 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 	}
 
 	@Override
-	public void update(Integer id, String fileName) throws NullPointerException {
+	public void update(Integer id, String fileName) throws ResourceFinderException {
 		String sql = "UPDATE public.data_picture SET dpi_value = ? WHERE dpi_id = ?";
 
 		try {
@@ -114,6 +118,9 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 			PreparedStatement ps = connection.prepareStatement(sql);
 			String resource = "pictures/" + fileName;
 			InputStream is = getClass().getClassLoader().getResourceAsStream(resource);
+			if (is == null) {
+				throw new ResourceFinderException();
+			}
 
 			ps.setBinaryStream(1, is);
 			ps.setInt(2, id);
@@ -126,6 +133,32 @@ public class DataPictuteDaoImpl extends ConnectData implements DataPictureDao {
 		} catch (SQLException | ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public DataPicture getLastEntry() {
+		String sql = "SELECT * FROM public.data_picture ORDER BY dpi_id DESC LIMIT 1";
+		DataPicture dataPicture = new DataPicture();
+		try {
+
+			Class.forName("org.postgresql.Driver");
+			Connection connection = DriverManager.getConnection(properties.getProperty(URL),
+					properties.getProperty(USERNAME), properties.getProperty(PASSWORD));
+
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				dataPicture.setId(rs.getInt("dpi_id"));
+				dataPicture.setPicture(rs.getBytes("dpi_value"));
+			}
+
+			connection.close();
+			ps.close();
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return dataPicture;
 	}
 
 }

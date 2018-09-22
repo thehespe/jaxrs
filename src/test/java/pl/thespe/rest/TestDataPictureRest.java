@@ -70,4 +70,12 @@ public class TestDataPictureRest {
 
 		Assert.assertEquals(HttpStatus.SC_NOT_FOUND, httpResponse.getStatusLine().getStatusCode());
 	}
+	
+	@Test
+	public void update_testResposeNotFoundStatus_2() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpPut("http://localhost:8080/jaxrs/data_picture/-1/jaxrs.png");
+		HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+		Assert.assertEquals(HttpStatus.SC_NOT_FOUND, httpResponse.getStatusLine().getStatusCode());
+	}
 }

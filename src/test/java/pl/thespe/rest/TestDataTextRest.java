@@ -33,7 +33,7 @@ public class TestDataTextRest {
 
 	@Test
 	public void getAll_testResposeOKStatus() throws ClientProtocolException, IOException {
-		HttpUriRequest request = new HttpGet("http://localhost	:8080/jaxrs/data_text");
+		HttpUriRequest request = new HttpGet("http://localhost:8080/jaxrs/data_text");
 		HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
 		Assert.assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
@@ -53,6 +53,14 @@ public class TestDataTextRest {
 		HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
 		Assert.assertEquals(HttpStatus.SC_OK, httpResponse.getStatusLine().getStatusCode());
+	}
+	
+	@Test
+	public void update_testResposeNotFoundStatus() throws ClientProtocolException, IOException {
+		HttpUriRequest request = new HttpPut("http://localhost:8080/jaxrs/data_text/-1/jaxrs_test");
+		HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+		Assert.assertEquals(HttpStatus.SC_NOT_FOUND, httpResponse.getStatusLine().getStatusCode());
 	}
 
 }

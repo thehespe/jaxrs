@@ -59,6 +59,78 @@ public class DataTextDaoImpl extends ConnectData implements DataTextDao {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
+			while (rs.next()) {
+				dataText.setId(rs.getInt("dte_id"));
+				dataText.setValue(rs.getString("dte_value"));
+			}
+			con.close();
+			ps.close();
+
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return dataText;
+	}
+
+	@Override
+	public void save(String value) {
+		String sql = "INSERT INTO public.data_text(dte_value) VALUES (?)";
+
+		try {
+			Class.forName("org.postgresql.Driver");
+
+			Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
+					properties.getProperty(PASSWORD));
+
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, value);
+			ps.executeUpdate();
+
+			con.close();
+			ps.close();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void update(Integer id, String value) {
+		String sql = "UPDATE public.data_text SET dte_value = ? WHERE dte_id = ?";
+
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
+					properties.getProperty(PASSWORD));
+
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, value);
+			ps.setInt(2, id);
+			ps.executeUpdate();
+
+			con.close();
+			ps.close();
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public DataText getLastEntry() {
+		String sql = "SELECT * FROM public.data_text ORDER BY dte_id DESC LIMIT 1";
+
+		DataText dataText = new DataText();
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
+					properties.getProperty(PASSWORD));
+
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+
 			rs.next();
 			dataText.setId(rs.getInt("dte_id"));
 			dataText.setValue(rs.getString("dte_value"));
@@ -70,41 +142,6 @@ public class DataTextDaoImpl extends ConnectData implements DataTextDao {
 			e.printStackTrace();
 		}
 		return dataText;
-	}
-
-	@Override
-	public void save(String value) throws ClassNotFoundException, SQLException {
-		String sql = "INSERT INTO public.data_text(dte_value) VALUES (?)";
-
-		Class.forName("org.postgresql.Driver");
-		Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
-				properties.getProperty(PASSWORD));
-
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, value);
-		ps.executeUpdate();
-
-		con.close();
-		ps.close();
-
-	}
-
-	@Override
-	public void update(Integer id, String value) throws SQLException, ClassNotFoundException {
-		String sql = "UPDATE public.data_text SET dte_value = ? WHERE dte_id = ?";
-
-		Class.forName("org.postgresql.Driver");
-		Connection con = DriverManager.getConnection(properties.getProperty(URL), properties.getProperty(USERNAME),
-				properties.getProperty(PASSWORD));
-
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, value);
-		ps.setInt(2, id);
-		ps.executeUpdate();
-
-		con.close();
-		ps.close();
-
 	}
 
 }
