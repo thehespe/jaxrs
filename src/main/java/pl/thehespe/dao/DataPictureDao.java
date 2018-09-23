@@ -10,7 +10,7 @@ public interface DataPictureDao {
 
 	public List<DataPicture> getAll();
 
-	public DataPicture get(Integer id);
+	public DataPicture getById(Integer id);
 
 	public void save(String fileName) throws ResourceFinderException;
 

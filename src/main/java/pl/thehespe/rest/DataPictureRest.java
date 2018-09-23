@@ -35,7 +35,7 @@ public class DataPictureRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
-	public JsonDataPicture get(@PathParam("id") Integer id, @Context HttpServletResponse response) throws IOException {
+	public JsonDataPicture getById(@PathParam("id") Integer id, @Context HttpServletResponse response) throws IOException {
 		JsonDataPicture jsonDataPicture = dataPictureService.getById(id);
 		if (jsonDataPicture.getId() != null) {
 			return jsonDataPicture;

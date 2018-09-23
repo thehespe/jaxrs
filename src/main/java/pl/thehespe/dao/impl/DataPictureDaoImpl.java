@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.glassfish.jersey.server.internal.scanning.ResourceFinderException;
-import org.hamcrest.core.IsNull;
 
 import pl.thehespe.dao.DataPictureDao;
 import pl.thehespe.db.model.DataPicture;
@@ -51,7 +50,7 @@ public class DataPictureDaoImpl extends ConnectData implements DataPictureDao {
 	}
 
 	@Override
-	public DataPicture get(Integer id) {
+	public DataPicture getById(Integer id) {
 		String sql = "SELECT * FROM public.data_picture WHERE dpi_id = ?";
 		DataPicture dataPicture = new DataPicture();
 		try {

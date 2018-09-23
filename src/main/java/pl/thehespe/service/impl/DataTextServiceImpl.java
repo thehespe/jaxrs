@@ -24,7 +24,7 @@ public class DataTextServiceImpl implements DataTextService {
 
 	@Override
 	public JsonDataText getById(Integer id) {
-		return dataTextMapper.toJson(dataTextDao.get(id));
+		return dataTextMapper.toJson(dataTextDao.getById(id));
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class DataTextServiceImpl implements DataTextService {
 	@Override
 	public JsonDataText update(Integer id, String value) throws NotFoundException {
 		dataTextDao.update(id, value);
-		DataText dataText = dataTextDao.get(id);
+		DataText dataText = dataTextDao.getById(id);
 		if (dataText.getId() == null) {
 			throw new NotFoundException();
 		}

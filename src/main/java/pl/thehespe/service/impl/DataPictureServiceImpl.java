@@ -26,7 +26,7 @@ public class DataPictureServiceImpl implements DataPictureService {
 
 	@Override
 	public JsonDataPicture getById(Integer id) {
-		return dataPictureMapper.toJson(dataPictureDao.get(id));
+		return dataPictureMapper.toJson(dataPictureDao.getById(id));
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class DataPictureServiceImpl implements DataPictureService {
 	@Override
 	public JsonDataPicture update(Integer id, String fileName) throws ResourceFinderException, NotFoundException {
 		dataPictureDao.update(id, fileName);
-		DataPicture dataPicture = dataPictureDao.get(id);
+		DataPicture dataPicture = dataPictureDao.getById(id);
 		
 		if (dataPicture.getId() == null) {
 			throw new NotFoundException();

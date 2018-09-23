@@ -8,7 +8,7 @@ public interface DataTextDao {
 
 	public List<DataText> getAll();
 
-	public DataText get(Integer id);
+	public DataText getById(Integer id);
 
 	public void save(String value);
 

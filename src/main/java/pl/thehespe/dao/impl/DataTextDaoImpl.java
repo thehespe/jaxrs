@@ -46,7 +46,7 @@ public class DataTextDaoImpl extends ConnectData implements DataTextDao {
 	}
 
 	@Override
-	public DataText get(Integer id) {
+	public DataText getById(Integer id) {
 		String sql = "SELECT * FROM public.data_text WHERE dte_id = ?";
 
 		DataText dataText = new DataText();

@@ -32,8 +32,7 @@ public class DataTextRest {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonDataText getValue(@PathParam("id") Integer id, @Context HttpServletResponse response)
-			throws IOException {
+	public JsonDataText getById(@PathParam("id") Integer id, @Context HttpServletResponse response) throws IOException {
 		JsonDataText jsonDataText = dataTextService.getById(id);
 		if (jsonDataText.getId() != null) {
 			return jsonDataText;
@@ -48,8 +47,7 @@ public class DataTextRest {
 	@Path("/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public JsonDataText save(@PathParam("value") String value) {
-		
-		return dataTextService.save(value);		
+		return dataTextService.save(value);
 	}
 
 	@PUT
@@ -58,12 +56,11 @@ public class DataTextRest {
 	public JsonDataText update(@PathParam("id") Integer id, @PathParam("value") String value,
 			@Context HttpServletResponse response) throws IOException {
 		try {
-			
 			return dataTextService.update(id, value);
 		} catch (NotFoundException e) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			response.flushBuffer();
-			
+
 			return null;
 		}
 	}
