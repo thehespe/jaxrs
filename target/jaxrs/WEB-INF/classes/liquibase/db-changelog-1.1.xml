@@ -1,0 +1,22 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="insert_into_data_text" author="thehespe">
+		<insert tableName="data_text">
+			<column name="dte_value" value="tekst" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="insert_into_data_picture" author="thehespe">
+		<insert tableName="data_picture">
+			<column name="dpi_value" value="[1,1,1,1,1]" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="tag-1.1" author="thehespe">
+		<tagDatabase tag="1.1" />
+	</changeSet>
+
+</databaseChangeLog>

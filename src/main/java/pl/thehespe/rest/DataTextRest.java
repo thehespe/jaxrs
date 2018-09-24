@@ -14,11 +14,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
 import pl.thehespe.json.JsonDataText;
 import pl.thehespe.service.DataTextService;
 import pl.thehespe.service.impl.DataTextServiceImpl;
 
 @Path("/data_text")
+@Api("/Data Text")
+@SwaggerDefinition(tags = { @Tag(name = "Data Text", description = "REST endpoint for Data Text") })
 public class DataTextRest {
 
 	private DataTextService dataTextService = new DataTextServiceImpl();

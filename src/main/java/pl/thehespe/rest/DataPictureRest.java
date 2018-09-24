@@ -16,11 +16,16 @@ import javax.ws.rs.core.MediaType;
 
 import org.glassfish.jersey.server.internal.scanning.ResourceFinderException;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
 import pl.thehespe.json.JsonDataPicture;
 import pl.thehespe.service.DataPictureService;
 import pl.thehespe.service.impl.DataPictureServiceImpl;
 
 @Path("/data_picture")
+@Api("/Data Picture")
+@SwaggerDefinition(tags = { @Tag(name = "Data Picture", description = "REST endpoint for Data Picture") })
 public class DataPictureRest {
 
 	private DataPictureService dataPictureService = new DataPictureServiceImpl();
