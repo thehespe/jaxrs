@@ -92,9 +92,6 @@
 			<artifactId>swagger-models</artifactId>
 			<version>1.5.20</version>
 		</dependency>
-
-
-
 	</dependencies>
 
 	<build>

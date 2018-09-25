@@ -17,6 +17,8 @@ import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.server.internal.scanning.ResourceFinderException;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 import pl.thehespe.json.JsonDataPicture;
@@ -32,6 +34,7 @@ public class DataPictureRest {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "find all data pictures")
 	public List<JsonDataPicture> getAll() {
 		return dataPictureService.getAll();
 
@@ -40,7 +43,9 @@ public class DataPictureRest {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{id}")
-	public JsonDataPicture getById(@PathParam("id") Integer id, @Context HttpServletResponse response) throws IOException {
+	@ApiOperation(value = "find data text by id")
+	public JsonDataPicture getById(@ApiParam(value = "id of data picture in database", required = true) 
+	@PathParam("id") Integer id, @Context HttpServletResponse response) throws IOException {
 		JsonDataPicture jsonDataPicture = dataPictureService.getById(id);
 		if (jsonDataPicture.getId() != null) {
 			return jsonDataPicture;
@@ -55,7 +60,9 @@ public class DataPictureRest {
 	@POST
 	@Path("/{fileName}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonDataPicture save(@PathParam("fileName") String fileName, 
+	@ApiOperation(value = "save data picture")
+	public JsonDataPicture save(@ApiParam(value = "picture filename located in resources", required = true)  
+	@PathParam("fileName") String fileName, 
 			@Context HttpServletResponse response) throws IOException {
 		try {
 			return dataPictureService.save(fileName);
@@ -71,7 +78,10 @@ public class DataPictureRest {
 	@PUT
 	@Path("/{id}/{fileName}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonDataPicture update(@PathParam("id") Integer id, @PathParam("fileName") String fileName, 
+	@ApiOperation(value = "update data picture")
+	public JsonDataPicture update(@ApiParam(value = "id of updated picture", required = true) 
+	@PathParam("id") Integer id, @ApiParam(value = "picture filename located in resources", required = true) 
+	@PathParam("fileName") String fileName, 
 			@Context HttpServletResponse response) throws IOException {
 		try {
 			return dataPictureService.update(id, fileName);

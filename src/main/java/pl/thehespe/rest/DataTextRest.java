@@ -15,6 +15,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 import pl.thehespe.json.JsonDataText;
@@ -30,6 +32,7 @@ public class DataTextRest {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "find all data text")
 	public List<JsonDataText> getAllValues() {
 		return dataTextService.getAll();
 	}
@@ -37,7 +40,9 @@ public class DataTextRest {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonDataText getById(@PathParam("id") Integer id, @Context HttpServletResponse response) throws IOException {
+	@ApiOperation(value = "find data text by id")
+	public JsonDataText getById(@ApiParam(value = "id of data text in database", required = true) 
+	@PathParam("id") Integer id, @Context HttpServletResponse response) throws IOException {
 		JsonDataText jsonDataText = dataTextService.getById(id);
 		if (jsonDataText.getId() != null) {
 			return jsonDataText;
@@ -51,14 +56,19 @@ public class DataTextRest {
 	@POST
 	@Path("/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonDataText save(@PathParam("value") String value) {
+	@ApiOperation(value = "save data text")
+	public JsonDataText save(@ApiParam(value = "value to save in database", required = true) 
+	@PathParam("value") String value) {
 		return dataTextService.save(value);
 	}
 
 	@PUT
 	@Path("/{id}/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public JsonDataText update(@PathParam("id") Integer id, @PathParam("value") String value,
+	@ApiOperation(value = "update data text")
+	public JsonDataText update(@ApiParam(value = "id of updated value", required = true) 
+	@PathParam("id") Integer id, @ApiParam(value = "value of updated entry", required = true)  
+	@PathParam("value") String value,
 			@Context HttpServletResponse response) throws IOException {
 		try {
 			return dataTextService.update(id, value);
