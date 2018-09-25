@@ -5,12 +5,14 @@
 	<artifactId>jaxrs</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jaxrx Maven Webapp</name>
+	<name>jaxrs Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<jaxrs.jersey.version>2.27</jaxrs.jersey.version>
+		<swagger.version>1.5.20</swagger.version>
 	</properties>
 
 	<dependencies>
@@ -20,7 +22,6 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -35,22 +36,22 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-server</artifactId>
-			<version>2.27</version>
+			<version>${jaxrs.jersey.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet-core</artifactId>
-			<version>2.27</version>
+			<version>${jaxrs.jersey.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
-			<version>2.27</version>
+			<version>${jaxrs.jersey.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>2.27</version>
+			<version>${jaxrs.jersey.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.liquibase</groupId>
@@ -75,22 +76,22 @@
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-jaxrs</artifactId>
-			<version>1.5.20</version>
+			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-annotations</artifactId>
-			<version>1.5.20</version>
+			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-core</artifactId>
-			<version>1.5.20</version>
+			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger</groupId>
 			<artifactId>swagger-models</artifactId>
-			<version>1.5.20</version>
+			<version>${swagger.version}</version>
 		</dependency>
 	</dependencies>
 
